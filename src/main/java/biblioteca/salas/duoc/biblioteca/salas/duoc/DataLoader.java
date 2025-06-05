@@ -30,7 +30,7 @@ public class DataLoader implements CommandLineRunner {
         Faker faker = new Faker();
         Random random = new Random();
 
-        for(int i=0; i<3; i++){
+        for(i=0) in (TipoSala.getIdTipo){
             TipoSala tipoSala = new TipoSala();
             tipoSala.setNombre(faker.book().genre());
 
