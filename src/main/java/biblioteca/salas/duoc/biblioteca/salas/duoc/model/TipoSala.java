@@ -5,19 +5,23 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.List;
+
 @Entity
-@Table(name="tipo_salas")
+@Table(name="TipoSalas")
+@Data
 @AllArgsConstructor
 @NoArgsConstructor
-@Data
 public class TipoSala {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer id;
+    private Integer idTipo;
 
     @Column(nullable = false, length = 30)
     private String nombre;
 
+    @OneToMany(mappedBy = "tipoSala", cascade = CascadeType.ALL)
+    private List<Sala> salas;
 
 }

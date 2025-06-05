@@ -7,7 +7,7 @@ import lombok.NoArgsConstructor;
 import org.hibernate.annotations.CollectionIdMutability;
 
 @Entity
-@Table(name = "salas")
+@Table(name = "Sala")
 @AllArgsConstructor
 @NoArgsConstructor
 @Data
@@ -22,10 +22,10 @@ public class Sala {
     @Column()
     private Integer capacidad;
 
-    @Column(nullable = false, unique = true)
+    @Column(nullable = false)
     private Integer idInsituto;
 
-    @Column(nullable = false, unique = true)
+    @Column(nullable = false)
     private Integer idTipo;
 
 }

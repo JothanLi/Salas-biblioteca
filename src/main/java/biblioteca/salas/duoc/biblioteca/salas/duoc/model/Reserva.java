@@ -8,7 +8,7 @@ import lombok.NoArgsConstructor;
 import java.util.Date;
 
 @Entity
-@Table(name="reservas")
+@Table(name="Reserva")
 @AllArgsConstructor
 @NoArgsConstructor
 @Data
@@ -18,10 +18,10 @@ public class Reserva {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     public Integer id;
 
-    @Column(nullable = false,unique = true)
+    @Column(nullable = false)
     public Integer idEstudiante;
 
-    @Column(nullable = false, unique = true)
+    @Column(nullable = false)
     public Integer codigoSala;
 
     @Column(nullable = false)
