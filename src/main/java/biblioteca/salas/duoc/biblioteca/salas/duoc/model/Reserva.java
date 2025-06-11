@@ -8,7 +8,7 @@ import lombok.NoArgsConstructor;
 import java.util.Date;
 
 @Entity
-@Table(name="Reserva")
+@Table(name="reserva")
 @AllArgsConstructor
 @NoArgsConstructor
 @Data
@@ -18,11 +18,13 @@ public class Reserva {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     public Integer id;
 
-    @Column(nullable = false)
-    public Integer idEstudiante;
+    @ManyToOne
+    @JoinColumn(name = "id_estudiante", nullable = false)
+    private Estudiante estudiante;
 
-    @Column(nullable = false)
-    public Integer codigoSala;
+    @ManyToOne
+    @JoinColumn(name = "codigo_sala", nullable = false)
+    private Sala sala;
 
     @Column(nullable = false)
     private Date fechaSolicitada;
@@ -30,7 +32,6 @@ public class Reserva {
     @Column(nullable = false)
     private Date horaReserva;
 
-    @Column()
     private Date horaCierre;
 
     @Column(nullable = false)

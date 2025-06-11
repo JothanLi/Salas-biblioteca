@@ -8,6 +8,7 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Component;
 
+import java.util.Date;
 import java.util.List;
 import java.util.Random;
 
@@ -36,11 +37,49 @@ public class DataLoader implements CommandLineRunner {
             tipoSala.setNombre(faker.book().genre());
             tipoSalaRepository.save(tipoSala);
         }
+
+        for (int i = 0; i < 5; i++) {
+            Carrera carrera = new Carrera();
+            carrera.setNombre(faker.educator().course());
+            carreraRepository.save(carrera);
+        }
+
+        List<Carrera> carreras = carreraRepository.findAll();
+
         for (int i = 0; i < 10; i++) {
             Estudiante estudiante = new Estudiante();
+            estudiante.setRun(faker.idNumber().valid());
             estudiante.setNombre(faker.name().fullName());
             estudiante.setCorreo(faker.internet().emailAddress());
+            estudiante.setJornada(faker.options().option("D", "N").charAt(0));
+            estudiante.setTelefono(faker.number().numberBetween(100000000, 999999999));
+            estudiante.setCarrera(carreras.get(random.nextInt(carreras.size())));
             estudianteRepository.save(estudiante);
         }
+
+        for (int i = 0; i < 10; i++) {
+            Sala sala = new Sala();
+            sala.setNombre(faker.university().name());
+            sala.setCapacidad(faker.number().numberBetween(10, 100));
+            sala.setIdInstituto(faker.number().randomDigit());
+            sala.setTipoSala(tipoSalaRepository.findAll().get(random.nextInt(tipoSalaRepository.findAll().size())));
+            salaRepository.save(sala);
+        }
+
+        List<Estudiante> estudiantes = estudianteRepository.findAll();
+        List<Sala> salas = salaRepository.findAll();
+
+        for (int i = 0; i < 20; i++) {
+            Reserva reserva = new Reserva();
+            reserva.setEstudiante(estudiantes.get(random.nextInt(estudiantes.size())));
+            reserva.setSala(salas.get(random.nextInt(salas.size())));
+            reserva.setFechaSolicitada(new Date());
+            reserva.setHoraReserva(new Date());
+            reserva.setHoraCierre(new Date(System.currentTimeMillis() + faker.number().numberBetween(3600000, 7200000))); // 1-2 horas más
+            reserva.setEstado(faker.number().numberBetween(0, 2));
+            reservaRepository.save(reserva);
+        }
+
+
     }
 }

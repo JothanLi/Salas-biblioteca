@@ -7,29 +7,25 @@ import lombok.NoArgsConstructor;
 import org.hibernate.annotations.CollectionIdMutability;
 
 @Entity
-@Table(name = "Sala")
+@Table(name = "sala")
 @AllArgsConstructor
 @NoArgsConstructor
 @Data
 public class Sala {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    public Integer codigo;
+    private Integer codigo;
 
     @Column(nullable = false, length = 50)
-    public String nombre;
+    private String nombre;
 
-    @Column()
     private Integer capacidad;
 
     @Column(nullable = false)
-    private Integer idInsituto;
-
-    @Column(nullable = false)
-    private Integer idTipo;
+    private Integer idInstituto;
 
     @ManyToOne
-    @JoinColumn(name = "tipo_sala_id")
+    @JoinColumn(name = "id_tipo", nullable = false)
     private TipoSala tipoSala;
 
 }

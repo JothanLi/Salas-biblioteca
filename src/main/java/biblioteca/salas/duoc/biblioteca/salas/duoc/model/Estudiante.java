@@ -6,7 +6,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @Entity
-@Table(name = "Estudiante")
+@Table(name = "estudiante")
 @AllArgsConstructor
 @NoArgsConstructor
 @Data
@@ -22,15 +22,15 @@ public class Estudiante {
     @Column(nullable = false, length = 100)
     private String nombre;
 
-    @Column(unique = true, length = 100)
+    @Column(length = 100)
     private String correo;
 
-    @Column(nullable = false, length = 1)
+    @Column(nullable = false)
     private Character jornada;
 
-    @Column(length = 10)
     private Integer telefono;
 
-    @Column(nullable = false, length = 100)
-    private String codigoCarrera;
+    @ManyToOne
+    @JoinColumn(name = "codigo_carrera", nullable = false)
+    private Carrera carrera;
 }

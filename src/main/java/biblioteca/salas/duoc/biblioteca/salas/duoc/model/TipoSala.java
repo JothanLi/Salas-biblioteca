@@ -8,17 +8,16 @@ import lombok.NoArgsConstructor;
 import java.util.List;
 
 @Entity
-@Table(name="TipoSalas")
+@Table(name="tipo_sala")
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
 public class TipoSala {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer id;
+    private Integer idTipo;
 
+    @Column(nullable = false, length = 30)
     private String nombre;
 
-    @OneToMany(mappedBy = "tipoSala")
-    private List<Sala> salas;
 }
