@@ -20,7 +20,7 @@ public class Estudiante {
     private String run;
 
     @Column(nullable = false, length = 100)
-    private String nombres;
+    private String nombre;
 
     @Column(unique = true, length = 100)
     private String correo;

@@ -28,4 +28,8 @@ public class Sala {
     @Column(nullable = false)
     private Integer idTipo;
 
+    @ManyToOne
+    @JoinColumn(name = "tipo_sala_id")
+    private TipoSala tipoSala;
+
 }

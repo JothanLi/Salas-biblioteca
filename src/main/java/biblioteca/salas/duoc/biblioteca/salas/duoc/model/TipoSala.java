@@ -13,15 +13,12 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 public class TipoSala {
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer idTipo;
+    private Integer id;
 
-    @Column(nullable = false, length = 30)
     private String nombre;
 
-    @OneToMany(mappedBy = "tipoSala", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "tipoSala")
     private List<Sala> salas;
-
 }
