@@ -30,38 +30,64 @@ public class DataLoader implements CommandLineRunner {
     private ReservaRepository reservaRepository;
 
     @Override
-    public void run(String... args) throws Exception{
-        Faker faker = new Faker();
-        Random random = new Random();
+    public void run(String... args) throws Exception {
 
-        //Creando tipos de sala
-        for(int i=0; i<3; i++){
+        crearTiposSalas(5);
+        generarCarreras(15);
+        generarEstudiantes(150);
+        crearSala(30);
+
+    }
+
+    private boolean crearTiposSalas(int cantidadTiposSalas) {
+        Faker faker = new Faker();
+
+        for (int i = 0; i < cantidadTiposSalas; i++) {
             TipoSala tipoSala = new TipoSala();
             tipoSala.setNombre(faker.book().genre());
             tipoSalaRepository.save(tipoSala);
         }
+        return true;
+    }
 
-        for(int i=0; i<5; i++){
+    private boolean generarCarreras(int cantidadCarreras) {
+        Faker faker = new Faker();
+
+        for (int i = 0; i < cantidadCarreras; i++) {
             Carrera carrera = new Carrera();
             carrera.setCodigo(faker.code().asin());
             carrera.setNombre(faker.educator().course());
             carreraRepository.save(carrera);
         }
+        return true;
+    }
 
+    private boolean generarEstudiantes(int cantidadEstudiantes){
+        Faker faker = new Faker();
+        Random random = new Random();
         List<Carrera> carreras = carreraRepository.findAll();
 
-        for(int i=0;i<50;i++){
+        for (int i = 0; i < cantidadEstudiantes; i++) {
             Estudiante estudiante = new Estudiante();
-            estudiante.setRun(faker.idNumber().valid());
+            String numeroRun = faker.idNumber().valid();
+            numeroRun = numeroRun.replace("-", "");
+            numeroRun = numeroRun.substring(0, 8);
+            estudiante.setRun(numeroRun);
             estudiante.setNombre(faker.name().fullName());
             estudiante.setCorreo(faker.internet().emailAddress());
-            estudiante.setJornada(faker.options().option("D", "N").charAt(0));
+            estudiante.setJornada(faker.options().option("D", "V").charAt(0));
             estudiante.setTelefono(faker.number().numberBetween(100000000, 999999999));
             estudiante.setCarrera(carreras.get(random.nextInt(carreras.size())));
             estudianteRepository.save(estudiante);
         }
+        return true;
+    }
 
-        for (int i = 0; i < 10; i++) {
+    private boolean crearSala(int cantidadSalas){
+        Faker faker = new Faker();
+        Random random = new Random();
+
+        for (int i = 0; i < cantidadSalas; i++) {
             Sala sala = new Sala();
             sala.setNombre(faker.university().name());
             sala.setCapacidad(faker.number().numberBetween(10, 100));
@@ -69,8 +95,7 @@ public class DataLoader implements CommandLineRunner {
             sala.setTipoSala(tipoSalaRepository.findAll().get(random.nextInt(3)));
             salaRepository.save(sala);
         }
-
-
+        return true;
     }
 
 }
