@@ -8,4 +8,6 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface CarreraRepository extends JpaRepository<Carrera, String>{
 
+    Carrera findByCodigo(String codigo);
+
 }
